@@ -1,0 +1,20 @@
+- name : Install nginx in nat
+  vars_files:
+    - vars/main.yml
+  hosts:
+    - nat
+  become: yes
+  roles:
+    - nginx
+
+- name: Configure NAT instance
+  hosts: nat
+  become: yes
+  roles:
+    - nat
+
+- name: Install docker in private
+  hosts: private
+  become: yes
+  roles:
+    - docker

@@ -1,0 +1,34 @@
+- name: Enable IP forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    state: present
+    reload: yes
+
+- name: Install nftables
+  apt:
+    name: nftables
+    state: present
+    update_cache: yes
+
+- name: Configure NAT rules
+  copy:
+    dest: /etc/nftables.conf
+    content: |
+      flush ruleset
+      table ip nat {
+        chain prerouting {
+          type nat hook prerouting priority -100;
+        }
+
+        chain postrouting {
+          type nat hook postrouting priority 100;
+          oifname "enX0" masquerade
+        }
+      }
+
+- name: Enable and start nftables
+  systemd:
+    name: nftables
+    enabled: yes
+    state: restarted

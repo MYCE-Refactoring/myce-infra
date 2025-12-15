@@ -1,0 +1,10 @@
+- name: Deploy backend project
+  hosts: private
+  become: yes
+  roles:
+    - backend_deploy
+  vars:
+    image_name: "{{ IMAGE_NAME }}"
+    app_port: "{{ APP_PORT }}"
+    docker_username: "{{ DOCKER_USERNAME }}"
+    docker_password: "{{ DOCKER_PASSWORD }}"

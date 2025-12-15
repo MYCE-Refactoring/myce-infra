@@ -1,0 +1,36 @@
+- name: Create app directory
+  file:
+    path: "{{ app_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Upload docker-compose.yml for backend
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ app_dir }}/docker-compose.yml"
+    mode: '0644'
+
+- name: Upload .env for backend
+  template:
+    src: dev.env
+    dest: "{{ app_dir }}/.env"
+    mode: '0644'
+
+- name: Login to private registry
+  community.docker.docker_login:
+    username: "{{ DOCKER_USERNAME }}"
+    password: "{{ DOCKER_PASSWORD }}"
+
+- name: Create app directory
+  file:
+    path: "{{ app_dir }}/logs"
+    state: directory
+    mode: '0755'
+
+- name: Pull latest backend image
+  become: yes
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_dir }}"
+    pull: always
+    build: always
+    state: present

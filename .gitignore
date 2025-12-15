@@ -1,0 +1,17 @@
+*.pub
+*.pem
+
+.env
+*.env
+env.yml
+*.env.yml
+
+*.env.hcl
+
+.terraform
+.terraform.lock.hcl
+
+terraform.*
+*.tfvars
+
+.DS_Store

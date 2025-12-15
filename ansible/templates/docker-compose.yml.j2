@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  myce:
+    container_name: myce
+    image: {{ image_name }}
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "{{ app_port }}:8081"
+    volumes:
+      - "{{ app_dir }}/logs:/app/logs"

@@ -1,0 +1,12 @@
+all:
+  hosts:
+    nat:
+      ansible_host: "{{ NAT_GW_IP }}"
+    private:
+      ansible_host: "{{ PRIVATE_IP }}"
+      ansible_ssh_common_args: >
+        -o ProxyCommand="ssh -i {{ SSH_KEY_PATH }} -o StrictHostKeyChecking=no -W %h:%p ubuntu@{{ BASTION_IP }}"
+    public:
+      ansible_host: "{{ PUBLIC_IP }}"
+    bastion:
+      ansible_host: "{{ BASTION_IP }}"
