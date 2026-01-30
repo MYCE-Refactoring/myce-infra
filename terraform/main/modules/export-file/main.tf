@@ -1,8 +1,8 @@
 locals {
   export_ips = {
     PUBLIC_IP  = var.public_ip
-    NAT_GW_IP     = var.nat_ip
-    BASTION_IP = var.bastion_ip
+    MONITORING_IP  = var.monitoring_ip
+    INTERNAL_IP = var.internal_ip
     PRIVATE_IP = var.private_ip
   }
 }

@@ -6,14 +6,14 @@ output "public_sg_id" {
   value = aws_security_group.myce_sg_public.id
 }
 
-output "nat_sg_id" {
-  value = aws_security_group.myce_sg_nat.id
+output "internal_sg_id" {
+  value = aws_security_group.myce_sg_internal.id
 }
 
-output "bastion_sg_id" {
-  value = aws_security_group.myce_sg_bastion.id
+output "monitoring_sg_id" {
+  value = aws_security_group.myce_sg_monitoring.id
 }
 
 output "db_sg_id" {
-  value = aws_security_group.db_sg.id
+  value = aws_security_group.myce_sg_db.id
 }

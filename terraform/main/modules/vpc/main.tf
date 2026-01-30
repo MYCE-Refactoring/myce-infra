@@ -1,7 +1,7 @@
 resource "aws_vpc" "vpc" {                                   # 새로운 vpc를 만들겠다는 의미
   cidr_block           = var.vpc_cidr                        #IPv4 CIDR Block
   enable_dns_hostnames = true                                # DNS Hostname 사용 옵션, 기본은 false
-  tags                 = { Name = "${var.name_prefix}_vpc" } #tag입력
+  tags                 = { Name = "${var.name_prefix}-vpc" } #tag입력
 }
 
 locals {
@@ -27,7 +27,7 @@ resource "aws_subnet" "private-subnet" {
   vpc_id                  = local.vpc_id
   cidr_block              = each.value.cidr
   availability_zone       = each.value.availability_zone
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
   tags                    = { Name = "${var.name_prefix}-${each.key}" }
 }
 

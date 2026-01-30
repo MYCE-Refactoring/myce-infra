@@ -5,7 +5,7 @@ locals {
 
 # vpc & subnet 생성
 module "myce_vpc" {
-  source      = "./modules/vpc"
+  source      = "./modules/vpc" # 수행할 파일
   name_prefix = local.project_name
   vpc_cidr    = "10.0.0.0/16"
   public_subnets = {
@@ -45,14 +45,14 @@ module "myce_ec2" {
   subnet_ids = {
     public : module.myce_vpc.public_subnet_ids["public-1"],
     private : module.myce_vpc.private_subnet_ids["private-1"],
-    nat : module.myce_vpc.public_subnet_ids["public-1"],
-    bastion : module.myce_vpc.public_subnet_ids["public-2"]
+    internal : module.myce_vpc.private_subnet_ids["private-2"],
+    monitoring : module.myce_vpc.public_subnet_ids["public-2"]
   }
   security_goups = {
     public : [module.sg_groups.public_sg_id],
     private : [module.sg_groups.private_sg_id],
-    nat : [module.sg_groups.nat_sg_id],
-    bastion : [module.sg_groups.bastion_sg_id]
+    internal : [module.sg_groups.internal_sg_id],
+    monitoring : [module.sg_groups.monitoring_sg_id]
   }
   private_rt_id = module.myce_vpc.private_route_table_id
   name_prefix   = local.project_name
@@ -76,10 +76,10 @@ module "myce_rds" {
 }
 
 module "export_ips_yml" {
-  source      = "./modules/export-file"
-  public_ip   = module.myce_ec2.public_ip
-  nat_ip      = module.myce_ec2.nat_ip
-  bastion_ip  = module.myce_ec2.bastion_ip
-  private_ip  = module.myce_ec2.private_ip
-  export_path = var.env_export_path
+  source = "./modules/export-file"
+  public_ip = module.myce_ec2.public_ip
+  private_ip = module.myce_ec2.private_ip
+  internal_ip = module.myce_ec2.internal_ip
+  monitoring_ip = module.myce_ec2.monitoring_ip
+  export_path     = var.env_export_path
 }

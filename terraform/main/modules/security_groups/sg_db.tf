@@ -1,4 +1,4 @@
-resource "aws_security_group" "db_sg" {
+resource "aws_security_group" "myce_sg_db" {
   name   = "${var.name_prefix}-sg-db"
   vpc_id = var.vpc_id
 
@@ -6,6 +6,9 @@ resource "aws_security_group" "db_sg" {
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
-    security_groups = [aws_security_group.myce_sg_private.id]
+    security_groups = [
+      aws_security_group.myce_sg_private.id,
+      aws_security_group.myce_sg_internal.id
+    ]
   }
 }
