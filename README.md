@@ -1,5 +1,5 @@
 ### 아키텍처 구조도
-<img width="1080" height="608" alt="Image" src="https://github.com/user-attachments/assets/f5cb81f6-fa61-4363-add4-2c9e30743235" />
+<img width="1080" height="608" alt="Image" src="https://github.com/user-attachments/assets/88cab5d0-c6c3-44d6-8e41-7de98ae8884c" />
 
 ## IaC(Infrastructure as Code)
 물리적 환경을 수동으로 사용하는 대신 코드를 사용하여 인프라를 프로비저닝하고 관리하는 프로세스
