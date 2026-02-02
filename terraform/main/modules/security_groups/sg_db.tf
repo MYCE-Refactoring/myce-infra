@@ -8,7 +8,8 @@ resource "aws_security_group" "myce_sg_db" {
     protocol        = "tcp"
     security_groups = [
       aws_security_group.myce_sg_private.id,
-      aws_security_group.myce_sg_internal.id
+      aws_security_group.myce_sg_internal.id,
+      aws_security_group.myce_sg_monitoring.id
     ]
   }
 }

@@ -24,7 +24,7 @@
     - docker
 
 - name: Create databases on RDS
-  hosts: localhost
+  hosts: monitoring
   vars:
     rds_host: "{{ RDS_HOST }}"
     rds_user: "{{ RDS_USER }}"
