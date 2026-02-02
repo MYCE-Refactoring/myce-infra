@@ -106,12 +106,6 @@ jobs:
           name: ansible-env
           path: ${{ env.WORKING_DIRECTORY }}
 
-      - name: Logging download artifact
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: |
-          echo "===== ${{ env.IPS_ENV_FILE }} ====="
-          cat "${{ env.IPS_ENV_FILE }}"
-
       - name: Create extra env file
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
