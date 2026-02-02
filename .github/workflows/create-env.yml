@@ -120,19 +120,21 @@ jobs:
           echo "===== ${{ env.EXTRA_ENV_FILE }} ====="
           cat "${{ env.EXTRA_ENV_FILE }}"
       
-      - name: Install ansible
-        shell: bash
-        run: |
-          sudo apt update
-          sudo apt install -y ansible
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-      - name: Install pymysql
-        run:  pip install pymysql
+      - name: Install Ansible & PyMySQL
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible pymysql
 
       - name: Run Ansible Playbook
         working-directory: ${{ env.WORKING_DIRECTORY }}
         env: 
           SSH_KEY_PATH: ./${{ secrets.SSH_KEY_NAME }}
+          ANSIBLE_PYTHON_INTERPRETER: python
         run: |
           ansible-playbook env-main.yml \
           -i inventory.yml \
