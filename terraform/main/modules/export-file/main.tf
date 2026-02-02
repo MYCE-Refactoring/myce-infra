@@ -9,10 +9,10 @@ locals {
   export_ips_yml = yamlencode(local.export_ips)
 }
 
-# resource "local_file" "export_ips_yml" {
-#   content  = yamlencode(local.export_ips)
-#   filename = var.export_path
-# }
+resource "local_file" "export_ips_yml" {
+  content  = yamlencode(local.export_ips)
+  filename = var.export_path
+}
 
 data "aws_s3_bucket" "artifact" {
   bucket = var.artifact_bucket
