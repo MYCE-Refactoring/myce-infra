@@ -1,0 +1,8 @@
+- name: Create databases
+  community.mysql.mysql_db:
+    name: "{{ item }}"
+    state: present
+    login_host: "{{ rds_host }}"
+    login_user: "{{ rds_user }}"
+    login_password: "{{ rds_password }}"
+  loop: "{{ databases }}"

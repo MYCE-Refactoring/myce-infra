@@ -2,19 +2,36 @@
   vars_files:
     - vars/main.yml
   hosts:
-    - nat
+    - public
   become: yes
   roles:
     - nginx
 
 - name: Configure NAT instance
-  hosts: nat
+  hosts: monitoring
   become: yes
   roles:
     - nat
 
 - name: Install docker in private
-  hosts: private
+  hosts: 
+    - public
+    - monitoring
+    - private
+    - internal
   become: yes
   roles:
     - docker
+
+- name: Create databases on RDS
+  hosts: localhost
+  vars:
+    rds_host: "{{ RDS_HOST }}"
+    rds_user: "{{ RDS_USER }}"
+    rds_password: "{{ RDS_PASSWORD }}"
+    databases:
+      - myce-core
+      - myce-payment
+      - myce-notification
+  roles:
+    - database
