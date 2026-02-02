@@ -1,7 +1,7 @@
 all:
   hosts:
     public:
-    ansible_host: "{{ PUBLIC_IP }}"
+      ansible_host: "{{ PUBLIC_IP }}"
     monitoring:
       ansible_host: "{{ MONITORING_IP }}"
     private:
