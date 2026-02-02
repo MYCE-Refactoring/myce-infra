@@ -126,6 +126,11 @@ jobs:
           sudo apt update
           sudo apt install -y ansible
 
+      - name: Install pymysql
+        run:  |
+          pip install pymysql \
+          export ANSIBLE_PYTHON_INTERPRETER=$(which python)
+
       - name: Run Ansible Playbook
         working-directory: ${{ env.WORKING_DIRECTORY }}
         env: 

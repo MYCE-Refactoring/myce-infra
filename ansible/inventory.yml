@@ -4,13 +4,13 @@ all:
       ansible_host: "{{ MONITORING_IP }}"
     public:
       ansible_host: "{{ PUBLIC_IP }}"
-      ansible_ssh_common_args: >
-        -o ProxyCommand="ssh -i {{ SSH_KEY_PATH }} -o StrictHostKeyChecking=no -W %h:%p ubuntu@{{ MONITORING_IP }}"
+      ansible_user: ubuntu
+      ansible_Ssh_private_key_file: {{ SSH_KEY_PATH }}
     private:
       ansible_host: "{{ PRIVATE_IP }}"
-      ansible_ssh_common_args: >
-        -o ProxyCommand="ssh -i {{ SSH_KEY_PATH }} -o StrictHostKeyChecking=no -W %h:%p ubuntu@{{ MONITORING_IP }}"
+      ansible_user: ubuntu
+      ansible_Ssh_private_key_file: {{ SSH_KEY_PATH }}
     internal:
       ansible_host: "{{ INTERNAL_IP }}"
-      ansible_ssh_common_args: >
-        -o ProxyCommand="ssh -i {{ SSH_KEY_PATH }} -o StrictHostKeyChecking=no -W %h:%p ubuntu@{{ MONITORING_IP }}"
+      ansible_user: ubuntu
+      ansible_Ssh_private_key_file: {{ SSH_KEY_PATH }}
