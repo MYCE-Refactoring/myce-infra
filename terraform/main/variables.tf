@@ -10,14 +10,22 @@ variable "db_name" {
   type = string
 }
 
-variable "env_export_path" {
-  type = string
-}
+# variable "env_export_path" {
+#   type = string
+# }
 
 variable "private_key_name" {
   type = string
 }
 
 variable "aws_region" {
+  type = string
+}
+
+variable "artifact_bucket" {
+  type = string
+}
+
+variable "artifact_export_path" {
   type = string
 }

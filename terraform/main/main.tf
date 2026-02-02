@@ -81,5 +81,6 @@ module "export_ips_yml" {
   private_ip = module.myce_ec2.private_ip
   internal_ip = module.myce_ec2.internal_ip
   monitoring_ip = module.myce_ec2.monitoring_ip
-  export_path     = var.env_export_path
+  artifact_bucket = var.artifact_bucket
+  artifact_export_path = var.artifact_export_path
 }
