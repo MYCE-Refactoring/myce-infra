@@ -126,11 +126,6 @@ jobs:
           sudo apt update
           sudo apt install -y ansible
 
-      - name: Install pymysql
-        shell: bash
-        run: / "===== ${env.monitoring} ====="
-          sudo apt pymysql
-
       - name: Run Ansible Playbook
         working-directory: ${{ env.WORKING_DIRECTORY }}
         env: 
