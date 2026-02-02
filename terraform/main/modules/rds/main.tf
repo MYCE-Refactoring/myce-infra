@@ -4,7 +4,7 @@ resource "aws_db_subnet_group" "db_subnet_group" {
 }
 
 resource "aws_db_instance" "mysql_db" {
-  storage_type           = "standard"
+  storage_type           = "gp2"
   allocated_storage      = 20
   identifier             = "${var.name_prefix}-database"
   db_name                = var.db_info.db_name
