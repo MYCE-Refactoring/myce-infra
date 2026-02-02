@@ -13,5 +13,6 @@ env.yml
 
 terraform.*
 *.tfvars
+tfplan
 
 .DS_Store
