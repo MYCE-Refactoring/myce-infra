@@ -48,7 +48,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Setup Terraform
+      - name: Setup TerraformFROM eclipse-temurin:21-jre
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.1.7
@@ -125,6 +125,11 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y ansible
+
+      - name: Install pymysql
+        shell: bash
+        run: / "===== ${env.monitoring} ====="
+          sudo apt pymysql
 
       - name: Run Ansible Playbook
         working-directory: ${{ env.WORKING_DIRECTORY }}
