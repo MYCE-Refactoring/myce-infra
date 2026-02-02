@@ -20,11 +20,11 @@ resource "aws_security_group_rule" "myce_sg_public_ingress_http" {
   security_group_id = local.public_id
 }
 
-# resource "aws_security_group_rule" "myce_sg_public_ingress_ssh" {
-#   type              = "ingress"
-#   from_port         = 22
-#   to_port           = 22
-#   protocol          = "tcp"
-#   source_security_group_id  = local.monitoring_id
-#   security_group_id = local.public_id
-# }
+resource "aws_security_group_rule" "myce_sg_public_ingress_ssh" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  source_security_group_id  = local.monitoring_id
+  security_group_id = local.public_id
+}
