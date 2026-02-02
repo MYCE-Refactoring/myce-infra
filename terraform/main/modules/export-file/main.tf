@@ -4,6 +4,9 @@ locals {
     MONITORING_IP = var.monitoring_ip
     INTERNAL_IP = var.internal_ip
     PRIVATE_IP = var.private_ip
+    RDS_HOST = var.db_info.db_host
+    RDS_USER = var.db_info.db_username
+    RDS_PASSWORD = var.db_info.db_password
   }
 
   export_ips_yml = yamlencode(local.export_ips)

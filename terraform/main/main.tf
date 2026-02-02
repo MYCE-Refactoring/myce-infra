@@ -84,4 +84,9 @@ module "export_ips_yml" {
   export_path = var.env_export_path
   artifact_bucket = var.artifact_bucket
   artifact_export_path = var.artifact_export_path
+  db_info = {
+    db_host : module.myce_rds.rds_host
+    db_username : var.db_username
+    db_password : var.db_password
+  }
 }

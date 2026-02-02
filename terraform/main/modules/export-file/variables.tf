@@ -25,3 +25,7 @@ variable "artifact_bucket" {
 variable "artifact_export_path" {
   type = string
 }
+
+variable "db_info" {
+  type = map(string)
+}
