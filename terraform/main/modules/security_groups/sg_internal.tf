@@ -11,7 +11,7 @@ resource "aws_security_group_rule" "myce_sg_internal_ingress_core_private" {
   to_port           = 8082
   protocol          = "tcp"
   source_security_group_id = local.private_id
-  security_group_id = aws_security_group.myce_sg_internal.id
+  security_group_id = local.internal_id
 }
 
 ## core-internal : monitoring
@@ -21,7 +21,7 @@ resource "aws_security_group_rule" "myce_sg_internal_ingress_core_monitoring" {
   to_port           = 8082
   protocol          = "tcp"
   source_security_group_id = local.monitoring_id
-  security_group_id = aws_security_group.myce_sg_internal.id
+  security_group_id = local.internal_id
 }
 
 ## payment-internal : private
@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "myce_sg_internal_ingress_payment_private" {
   to_port           = 8023
   protocol          = "tcp"
   source_security_group_id = local.private_id
-  security_group_id = aws_security_group.myce_sg_internal.id
+  security_group_id = local.internal_id
 }
 
 ## payment-internal : monitoring
@@ -41,7 +41,7 @@ resource "aws_security_group_rule" "myce_sg_internal_ingress_payment_monitoring"
   to_port           = 8023
   protocol          = "tcp"
   source_security_group_id = local.monitoring_id
-  security_group_id = aws_security_group.myce_sg_internal.id
+  security_group_id = local.internal_id
 }
 
 resource "aws_security_group_rule" "myce_sg_internal_ingress_ssh" {
@@ -50,7 +50,7 @@ resource "aws_security_group_rule" "myce_sg_internal_ingress_ssh" {
   to_port           = 22
   protocol          = "tcp"
   source_security_group_id  = local.monitoring_id
-  security_group_id = aws_security_group.myce_sg_internal.id
+  security_group_id = local.internal_id
 }
 
 resource "aws_security_group_rule" "myce_sg_internal_egress_all" {
@@ -59,7 +59,7 @@ resource "aws_security_group_rule" "myce_sg_internal_egress_all" {
   to_port           = 65535
   protocol          = "tcp"
   source_security_group_id = local.monitoring_id
-  security_group_id = aws_security_group.myce_sg_internal.id
+  security_group_id = local.internal_id
 }
 
 resource "aws_security_group_rule" "myce_sg_internal_egress_monitoring" {
@@ -68,7 +68,7 @@ resource "aws_security_group_rule" "myce_sg_internal_egress_monitoring" {
   from_port         = -1
   to_port           = -1
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = local.private_id
+  security_group_id = local.internal_id
 }
 
 resource "aws_security_group_rule" "myce_sg_internal_egress_db" {
@@ -77,5 +77,5 @@ resource "aws_security_group_rule" "myce_sg_internal_egress_db" {
   to_port           = 3306
   protocol          = "tcp"
   source_security_group_id = local.db_id
-  security_group_id = aws_security_group.myce_sg_internal.id
+  security_group_id = local.internal_id
 }
