@@ -4,6 +4,7 @@ locals { ## 참조는 의존성을 만들어서 얘네를 먼저 만들고 이 �
   private_id            = aws_security_group.myce_sg_private.id
   monitoring_id         = aws_security_group.myce_sg_monitoring.id
   public_id             = aws_security_group.myce_sg_public.id
+  internal_id           = aws_security_group.myce_sg_internal.id
   db_id                 = aws_security_group.myce_sg_db.id
   monitoring_private_ingress = {
     monitoring: local.monitoring_id,
@@ -65,8 +66,26 @@ resource "aws_security_group_rule" "myce_sg_private_ingress_ssh" {
 resource "aws_security_group_rule" "myce_sg_private_egress_all" {
   type              = "egress"
   from_port         = 0
-  to_port           = 0
+  to_port           = 65535
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = local.private_id
+}
+
+resource "aws_security_group_rule" "myce_sg_private_egress_monitoring" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "icmp"
+  source_security_group_id = local.monitoring_id
+  security_group_id = local.private_id
+}
+
+resource "aws_security_group_rule" "myce_sg_private_egress_db" {
+  type              = "egress"
+  from_port         = 3306
+  to_port           = 3306
+  protocol          = "tcp"
+  source_security_group_id = local.db_id
+  security_group_id = aws_security_group.myce_sg_internal.id
 }

@@ -53,14 +53,22 @@ resource "aws_security_group_rule" "myce_sg_internal_ingress_ssh" {
   security_group_id = aws_security_group.myce_sg_internal.id
 }
 
-
 resource "aws_security_group_rule" "myce_sg_internal_egress_all" {
   type              = "egress"
   from_port         = 0
-  to_port           = 0
+  to_port           = 65535
   protocol          = "tcp"
   source_security_group_id = local.monitoring_id
   security_group_id = aws_security_group.myce_sg_internal.id
+}
+
+resource "aws_security_group_rule" "myce_sg_internal_egress_monitoring" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "icmp"
+  source_security_group_id = local.monitoring_id
+  security_group_id = local.private_id
 }
 
 resource "aws_security_group_rule" "myce_sg_internal_egress_db" {

@@ -22,6 +22,33 @@ resource "aws_security_group_rule" "myce_sg_monitoring_ingress_grafana" {
   security_group_id = local.monitoring_id
 }
 
+resource "aws_security_group_rule" "myce_sg_monitoring_ingress_internal" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  source_security_group_id = local.internal_id
+  security_group_id = local.monitoring_id
+}
+
+resource "aws_security_group_rule" "myce_sg_monitoring_ingress_private" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  source_security_group_id = local.private_id
+  security_group_id = local.monitoring_id
+}
+
+resource "aws_security_group_rule" "myce_sg_monitoring_ingress_public" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  source_security_group_id = local.public_id
+  security_group_id = local.monitoring_id
+}
+
 resource "aws_security_group_rule" "myce_sg_monitoring_egress_all" {
   type              = "egress"
   from_port         = 0

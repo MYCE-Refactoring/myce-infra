@@ -28,3 +28,21 @@ resource "aws_security_group_rule" "myce_sg_public_ingress_ssh" {
   source_security_group_id  = local.monitoring_id
   security_group_id = local.public_id
 }
+
+resource "aws_security_group_rule" "myce_sg_public_egress_all" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  source_security_group_id = local.monitoring_id
+  security_group_id = local.private_id
+}
+
+resource "aws_security_group_rule" "myce_sg_public_egress_monitoring" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "icmp"
+  source_security_group_id = local.monitoring_id
+  security_group_id = local.private_id
+}
