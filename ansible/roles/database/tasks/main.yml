@@ -1,3 +1,9 @@
+- name: Install PyMySQL
+  apt:
+    name: python3-pymysql
+    state: present
+    update_cache: true
+
 - name: Create databases
   community.mysql.mysql_db:
     name: "{{ item }}"

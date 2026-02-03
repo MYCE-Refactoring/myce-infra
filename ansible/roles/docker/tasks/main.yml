@@ -1,13 +1,16 @@
+- name: Update apt cache
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+
 - name: Install required packages
   apt:
-    name: "{{ item }}"
+    name:
+      - apt-transport-https
+      - curl
+      - ca-certificates
+      - software-properties-common
     state: present
-    update_cache: true
-  loop: 
-    - apt-transport-https
-    - curl
-    - ca-certificates
-    - software-properties-common
 
 - name: Ensure keyrings directory exists
   file:
