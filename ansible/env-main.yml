@@ -5,13 +5,13 @@
     - public
   become: yes
   roles:
-    - nginx
+    - environment/nginx
 
 - name: Configure NAT instance
   hosts: monitoring
   become: yes
   roles:
-    - nat
+    - environment/nat
 
 - name: Install docker in private
   hosts: 
@@ -21,7 +21,7 @@
     - internal
   become: yes
   roles:
-    - docker
+    - environment/docker
 
 - name: Create databases on RDS
   hosts: monitoring
@@ -35,4 +35,4 @@
       - myce_payment
       - myce_notification
   roles:
-    - database
+    - environment/database

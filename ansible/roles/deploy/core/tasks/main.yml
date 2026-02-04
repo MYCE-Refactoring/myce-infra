@@ -10,12 +10,6 @@
     dest: "{{ app_dir }}/docker-compose.yml"
     mode: '0644'
 
-- name: Upload .env for backend
-  template:
-    src: dev.env
-    dest: "{{ app_dir }}/.env"
-    mode: '0644'
-
 - name: Login to private registry
   community.docker.docker_login:
     username: "{{ DOCKER_USERNAME }}"
