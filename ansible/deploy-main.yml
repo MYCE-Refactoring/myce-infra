@@ -1,8 +1,8 @@
 - name: Deploy project
-  hosts: private
+  hosts: "{{ DEPLOY_HOST }}"
   become: yes
   roles:
-    - deploy/backend_deploy
+    - deploy/core
   vars:
     image_name: "{{ IMAGE_NAME }}"
     app_port: "{{ APP_PORT }}"
