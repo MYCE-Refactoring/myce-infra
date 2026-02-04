@@ -28,7 +28,7 @@ jobs:
         run: |
           echo "SERVICE_NAME=${{ env.DOCKER_IMAGE_NAME }}"
           echo "PORT=${{ env.APP_PORT }}"
-          echo "DEPLOY_HOST=${{ env.DEPLOy_HOST }}"
+          echo "DEPLOY_HOST=${{ env.DEPLOY_HOST }}"
 
       - name: Configure AWS Credentials for Terraform
         uses: aws-actions/configure-aws-credentials@v2
