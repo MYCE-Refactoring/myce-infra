@@ -5,8 +5,6 @@ services:
     container_name: myce
     image: {{ image_name }}:latest
     restart: always
-    env_file:
-      - .env
     ports:
       - "{{ app_port }}:{{ app_port }}"
     volumes:
