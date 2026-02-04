@@ -18,6 +18,7 @@ jobs:
       EXTRA_ENV_FILE: extra-env.yml
       APP_PORT: ${{ github.event.client_payload.port }}
       DOCKER_IMAGE_NAME: ${{ github.event.client_payload.service }}
+      DEPLOY_HOST: ${{ github.event.client_payload.deploy-host }}
 
     steps:
       - name: Checkout
@@ -51,6 +52,7 @@ jobs:
           DOCKER_USERNAME: '${{ vars.DOCKER_USERNAME }}'
           DOCKER_PASSWORD: '${{ secrets.DOCKER_PASSWORD }}'
           APP_DIR: /home/ubuntu/app/${{ env.DOCKER_IMAGE_NAME }}
+          DEPLOY_HOST: ${{ env.DEPLOY_HOST }}
           EOF
 
       - name: Install ansible
