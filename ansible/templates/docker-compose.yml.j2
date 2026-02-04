@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   myce:
     container_name: myce
-    image: {{ image_name }}:latest
+    image: "{{ image_name }}:latest"
     restart: always
     ports:
       - "{{ app_port }}:{{ app_port }}"
