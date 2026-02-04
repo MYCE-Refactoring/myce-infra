@@ -4,7 +4,7 @@
   roles:
     - deploy/core
   vars:
-    image_name: "{{ IMAGE_NAME }}"
+    image_name: "{{ DOCKER_USERNAME }}/{{ IMAGE_NAME }}"
     app_port: "{{ APP_PORT }}"
     app_dir: "{{ APP_DIR }}"
     docker_username: "{{ DOCKER_USERNAME }}"
