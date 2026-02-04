@@ -1,12 +1,12 @@
 name: Deploy all modules
 
 concurrency:
-  group: deploy-main
+  group: core-deploy
   cancel-in-progress: true
 
 on:
   repository_dispatch:
-    types: [deploy-myce]
+    types: [deploy-myce-core]
 
 jobs:
   deploy:
@@ -16,7 +16,8 @@ jobs:
       WORKING_DIRECTORY: ./ansible
       IPS_ENV_FILE: dev-env.yml
       EXTRA_ENV_FILE: extra-env.yml
-      DEV_ENV_FILE: ./templates/dev.env
+      APP_PORT: ${{ github.event.client_payload.port }}
+      DOCKER_IMAGE_NAME: ${{ github.event.client_payload.service }}
 
     steps:
       - name: Checkout
@@ -45,17 +46,11 @@ jobs:
         run: |
           cat <<EOF > "${{ env.EXTRA_ENV_FILE }}"
           SSH_KEY_PATH: './${{ secrets.SSH_KEY_NAME }}'
-          IMAGE_NAME: '${{ secrets.DOCKER_IMAGE_NAME }}'
-          APP_PORT: '${{ vars.APP_PORT }}'
+          IMAGE_NAME: '${{ env.DOCKER_IMAGE_NAME }}'
+          APP_PORT: '${{ env.APP_PORT }}'
           DOCKER_USERNAME: '${{ vars.DOCKER_USERNAME }}'
           DOCKER_PASSWORD: '${{ secrets.DOCKER_PASSWORD }}'
-          EOF
-
-      - name: Create dev-env file
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: |
-          cat <<EOF > "${{ env.DEV_ENV_FILE }}"
-          ${{ secrets.MYCE_ENV_FILE }}
+          APP_DIR: /home/ubuntu/app/${{ env.DOCKER_IMAGE_NAME }}
           EOF
 
       - name: Install ansible
@@ -80,4 +75,3 @@ jobs:
         run: |
           rm -f ${{ secrets.SSH_KEY_NAME }}
           rm -f ${{ env.EXTRA_ENV_FILE }}
-          rm -f ${{ env.DEV_ENV_FILE }}
