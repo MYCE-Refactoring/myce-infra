@@ -7,6 +7,11 @@ concurrency:
 on:
   push:
     branches: [ main ]
+    paths:
+      - terraform/**
+      - ansible/env-main.yml
+      - ansible/roles/environment/**
+
 
 jobs:
   terraform:
