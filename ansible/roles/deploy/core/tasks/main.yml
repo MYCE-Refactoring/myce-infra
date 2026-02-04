@@ -12,6 +12,7 @@
 
 - name: Login to private registry
   community.docker.docker_login:
+    registry_url: ghcr.io
     username: "{{ DOCKER_USERNAME }}"
     password: "{{ DOCKER_PASSWORD }}"
 
