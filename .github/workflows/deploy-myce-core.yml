@@ -1,7 +1,7 @@
 name: Deploy all modules
 
 concurrency:
-  group: core-deploy
+  group: deploy-${{ github.event.client_payload.service }}
   cancel-in-progress: true
 
 on:
