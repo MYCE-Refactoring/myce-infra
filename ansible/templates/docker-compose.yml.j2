@@ -1,6 +1,6 @@
 services:
   myce:
-    container_name: "myce-{{ service_name }}"
+    container_name: "{{ service_name }}"
     image: "{{ image_name }}:latest"
     restart: always
     ports:
