@@ -27,4 +27,6 @@
     project_src: "{{ app_dir }}"
     pull: always
     build: always
-    state: present
+    state: started
+    recreate: always
+    remove_orphans: true
