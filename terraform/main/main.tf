@@ -90,3 +90,19 @@ module "export_ips_yml" {
     db_password : var.db_password
   }
 }
+
+module "export_parameter_store" {
+  source = "./modules/parameter_store"
+  db_host = module.myce_rds.rds_host
+  monitoring_ip = module.myce_ec2.monitoring_ip
+}
+
+module "clinet_s3" {
+  source      = "./modules/client-s3"
+  name_prefix = local.project_name
+}
+
+module "media_s3" {
+  source="./modules/media-s3"
+  name_prefix = local.project_name
+}
