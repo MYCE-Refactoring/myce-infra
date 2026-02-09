@@ -27,6 +27,14 @@
     project_src: "{{ app_dir }}"
     pull: always
     build: always
-    state: restarted
+    state: present
     recreate: always
     remove_orphans: true
+
+- name: Check running containers
+  become: yes
+  command: docker ps
+  register: docker_ps
+
+- debug:
+    var: docker_ps.stdout
