@@ -17,7 +17,7 @@ resource "aws_s3_bucket_versioning" "this" {
     }
 }
 
-resource "aws_s3_bucket_public_access_block" "this" {
+resource "aws_s3_bucket_public_access_block" "media_bucket_access" {
     bucket = aws_s3_bucket.myce_media_bucket.id
 
     block_public_acls = false
@@ -26,24 +26,24 @@ resource "aws_s3_bucket_public_access_block" "this" {
     restrict_public_buckets = false
 }
 
-resource "aws_s3_bucket_policy" "this" {
-    bucket = aws_s3_bucket.myce_media_bucket.id
+data "aws_iam_policy_document" "media_bucket_policy" {
+    statement {
+        effect = "Allow"
+        actions = ["s3:GetObject", "s3:PutObject"]
+        resources = ["${aws_s3_bucket.myce_media_bucket.arn}/*"]
 
-    policy = <<POLICY
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Sid": "Statement1",
-                "Effect": "Allow",
-                "Principal": "*",
-                "Action": [
-                    "s3:GetObject",
-                    "s3:PutObject"
-                ],
-                "Resource": "arn:aws:s3:::${local.bucket_name}/*"
-            }
-        ]
+        principals {
+            type = "Service"
+            identifiers = ["cloudfront.amazonaws.com"]
+        }
     }
-    POLICY
+}
+
+resource "aws_s3_bucket_policy" "media_policy" {
+  bucket = aws_s3_bucket.myce_media_bucket.id
+  policy = data.aws_iam_policy_document.media_bucket_policy.json
+
+  depends_on = [
+    aws_s3_bucket_public_access_block.media_bucket_access
+  ]
 }
