@@ -95,6 +95,9 @@ module "export_parameter_store" {
   source = "./modules/parameter_store"
   db_host = module.myce_rds.rds_host
   monitoring_ip = module.myce_ec2.monitoring_ip
+  private_ip = module.myce_ec2.private_ip
+  public_ip = module.myce_ec2.public_ip
+  internal_ip = module.myce_ec2.internal_ip
 }
 
 module "clinet_s3" {

@@ -5,3 +5,15 @@ variable "db_host" {
 variable "monitoring_ip" {
   type = string
 }
+
+variable "private_ip" {
+  type = string
+}
+
+variable "public_ip" {
+  type = string
+}
+
+variable "internal_ip" {
+  type = string
+}
