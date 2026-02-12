@@ -35,8 +35,8 @@ resource "aws_security_group_rule" "myce_sg_private_ingress_notification" {
   for_each = local.monitoring_private_ingress
 
   type              = "ingress"
-  from_port         = 8023
-  to_port           = 8023
+  from_port         = 8011
+  to_port           = 8011
   protocol          = "tcp"
   source_security_group_id = each.value
   security_group_id = local.private_id
@@ -58,6 +58,15 @@ resource "aws_security_group_rule" "myce_sg_private_ingress_ssh" {
   type              = "ingress"
   from_port         = 22
   to_port           = 22
+  protocol          = "tcp"
+  source_security_group_id  = local.monitoring_id
+  security_group_id = local.private_id
+}
+
+resource "aws_security_group_rule" "myce_sg_private_ingress_node_exporter" {
+  type              = "ingress"
+  from_port         = 9100
+  to_port           = 9100
   protocol          = "tcp"
   source_security_group_id  = local.monitoring_id
   security_group_id = local.private_id

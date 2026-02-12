@@ -53,6 +53,15 @@ resource "aws_security_group_rule" "myce_sg_internal_ingress_ssh" {
   security_group_id = local.internal_id
 }
 
+resource "aws_security_group_rule" "myce_sg_internal_ingress_node_exporter" {
+  type              = "ingress"
+  from_port         = 9100
+  to_port           = 9100
+  protocol          = "tcp"
+  source_security_group_id  = local.monitoring_id
+  security_group_id = local.internal_id
+}
+
 resource "aws_security_group_rule" "myce_sg_internal_egress_all" {
   type              = "egress"
   from_port         = 0

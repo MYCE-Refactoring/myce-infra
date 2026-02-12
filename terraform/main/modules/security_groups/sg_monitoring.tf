@@ -22,6 +22,26 @@ resource "aws_security_group_rule" "myce_sg_monitoring_ingress_grafana" {
   security_group_id = local.monitoring_id
 }
 
+## eureka
+resource "aws_security_group_rule" "myce_sg_monitoring_ingress_eureka" {
+  type              = "ingress"
+  from_port         = 8084
+  to_port           = 8084
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = local.monitoring_id
+}
+
+## prometheus
+resource "aws_security_group_rule" "myce_sg_monitoring_ingress_prometheus" {
+  type              = "ingress"
+  from_port         = 9090
+  to_port           = 9090
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = local.monitoring_id
+}
+
 resource "aws_security_group_rule" "myce_sg_monitoring_ingress_internal" {
   type              = "ingress"
   from_port         = 0

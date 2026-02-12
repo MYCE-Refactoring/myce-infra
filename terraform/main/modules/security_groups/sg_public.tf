@@ -29,6 +29,25 @@ resource "aws_security_group_rule" "myce_sg_public_ingress_ssh" {
   security_group_id = local.public_id
 }
 
+## api-gateway
+resource "aws_security_group_rule" "myce_sg_public_ingress_gateway" {
+  type              = "ingress"
+  from_port         = 8083
+  to_port           = 8083
+  protocol          = "tcp"
+  source_security_group_id  = local.monitoring_id
+  security_group_id = local.public_id
+}
+
+resource "aws_security_group_rule" "myce_sg_public_ingress_node_exporter" {
+  type              = "ingress"
+  from_port         = 9100
+  to_port           = 9100
+  protocol          = "tcp"
+  source_security_group_id  = local.monitoring_id
+  security_group_id = local.public_id
+}
+
 resource "aws_security_group_rule" "myce_sg_public_egress_all" {
   type              = "egress"
   from_port         = 0
