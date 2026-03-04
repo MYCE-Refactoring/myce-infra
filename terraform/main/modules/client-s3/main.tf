@@ -99,6 +99,8 @@ resource "aws_cloudfront_distribution" "client_cloudfront_distribution" {
     minimum_protocol_version = "TLSv1.2_2021"
   }
 
+  web_acl_id = "arn:aws:wafv2:us-east-1:274213481132:global/webacl/CreatedByCloudFront-2eef1b0b/620a6ed9-7a01-4e58-8382-758f8194f539"
+
   depends_on = [ aws_acm_certificate_validation.ssl_certificate_virginia ]
   aliases = ["myce.cloud"]
 }
